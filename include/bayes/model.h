@@ -49,6 +49,23 @@ class Model {
   // [0][0] for class 0 is shaded.
  private:
   double probs_[kImageSize][kImageSize][kNumClasses][kNumShades];
+  std::vector<Image> training_image_objects;
+  std::vector<int> training_labels;
+   double smoothing_factor;
+public:
+    bool GetLabelsFromFile(string filepath);
+
+    bool GetImagesFromFile(string filepath);
+
+    double ComputeProbOfFeature(int row, int col, int num_class, int color);
+
+    int MostCommonShadeInFeature(int rows, int col, Image image);
+
+    double ComputeProbabilityOfClassInLabels(int numberclass);
+
+
+
+
 };
 
 }  // namespace bayes

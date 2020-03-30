@@ -1,29 +1,62 @@
-// Copyright (c) 2020 [Your Name]. All rights reserved.
+// Copyright (c) 2020 [Sabar Nimmagadda]. All rights reserved.
 
 #ifndef BAYES_IMAGE_H_
 #define BAYES_IMAGE_H_
 
 #include <cstdlib>
+#include <istream>
+#include <ostream>
+#include <string>
+#include <vector>
+#include <iostream>
 
+using std::string;
+using std::vector;
+using std::cin;
+using std::cout;
+using std::istream;
+using std::ifstream;
+using std::ostream;
 
 namespace bayes {
 
-/*
- * We've given you a starter class to represent an image.
- * You are totally allowed to delete, change, move, rename, etc. this class
- * however you like! In fact, we encourage it! It only exists as a starting
- * point of reference.
- *
- * You can delete this comment once you're done with it.
+    constexpr size_t kImageSize = 28;
+
+/**
+ * Class that is associated with creating objects,
+ * and functions relevant to images.
  */
+    class Image {
 
-constexpr size_t kImageSize = 28;
+    private:
 
-class Image {
- private:
-  char pixels_[kImageSize][kImageSize];
-};
+    public:
+        int image_grid[kImageSize][kImageSize];
 
-}  // namespace bayes
+        /**
+         * This overloads the input operator to read an Image object.
+         * @param input the input stream that reads the image.
+         * @param image the Image object that contains the image.
+         * @return the input stream where the image is being read.
+         */
+        friend istream &operator>>(istream &input, Image image);
+
+        /**
+         * This function prints out a grid from the read image.
+         * @param output the output stream where the image is printed.
+         * @param image the Image object that is read.
+         * @return output the output stream where the image is printed.
+         */
+        friend ostream &operator<<(ostream output, Image image);
+
+        /**
+         * setter for image_grid;
+         * @param grid the grid the 2-D array must be set to.
+         */
+        void setImageAsGrid(int grid[kImageSize][kImageSize]);
+
+
+    };
+}// namespace bayes
 
 #endif  // BAYES_IMAGE_H_

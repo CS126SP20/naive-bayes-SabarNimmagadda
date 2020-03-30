@@ -145,3 +145,4 @@ _deps
 
 # Naive Bayes training, testing, and model files.
 # Add your data files below!
+/data/digitdata/
