@@ -28,7 +28,6 @@ namespace bayes {
  */
     class Image {
 
-    private:
 
     public:
         int image_grid[kImageSize][kImageSize];

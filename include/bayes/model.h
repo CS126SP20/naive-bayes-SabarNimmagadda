@@ -47,15 +47,26 @@ class Model {
   //
   // probs[0][0][0][1] is the computed probability that a pixel at
   // [0][0] for class 0 is shaded.
- private:
-  double probs_[kImageSize][kImageSize][kNumClasses][kNumShades];
-  std::vector<Image> training_image_objects;
-  std::vector<int> training_labels;
-   double smoothing_factor;
-public:
-    bool GetLabelsFromFile(string filepath);
+  private:
 
-    bool GetImagesFromFile(string filepath);
+
+
+
+
+public:
+    std::vector<Image> training_image_objects;
+
+    double smoothing_factor;
+
+    std::vector<int> training_labels;
+
+    double probs_[kImageSize][kImageSize][kNumClasses][kNumShades];
+
+    void initialize(string label_file, string image_file, double smoothing);
+
+    void GetLabelsFromFile(string filepath);
+
+    void GetImagesFromFile(string filepath);
 
     double ComputeProbOfFeature(int row, int col, int num_class, int color);
 
@@ -63,10 +74,9 @@ public:
 
     double ComputeProbabilityOfClassInLabels(int numberclass);
 
-    void setFeatureProbabilityArray(Image image);
+    void setFeatureProbabilityArray();
 
     std::vector<double> CreateProbabilityOfClassInLabelsVector();
-
 
 
 };

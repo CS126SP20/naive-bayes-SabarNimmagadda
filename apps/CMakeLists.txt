@@ -1,4 +1,4 @@
-add_executable(classify classify.cc)
+add_executable(classify ../src/classify.cc)
 target_compile_features(classify PRIVATE cxx_std_17)
 target_link_libraries(classify PRIVATE bayes gflags::gflags nlohmann_json)
 

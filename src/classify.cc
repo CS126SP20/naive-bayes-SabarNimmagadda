@@ -15,20 +15,15 @@
 DEFINE_string(name, "Clarice", "Your first name");
 DEFINE_bool(happy, false, "Whether the greeting is a happy greeting");
 
-
+using std::cin;
+using std::cout;
 int main(int argc, char** argv) {
-  gflags::SetUsageMessage(
-      "Greets you with your name. Pass --helpshort for options.");
+    string image_file;
+    string label_file;
+    Classifier
+    cout << "Enter file for images";
+    cin >> image_file;
+    cout << "Enter file for labels";
+    cin >> label_file;
 
-  gflags::ParseCommandLineFlags(&argc, &argv, true);
-
-  if (FLAGS_name.empty()) {
-    std::cerr << "Please provide a name via the --name flag." << std::endl;
-    return EXIT_FAILURE;
-  }
-
-  const std::string punctuation = FLAGS_happy ? "!" : ".";
-
-  std::cout << "Hello, " << FLAGS_name << punctuation << std::endl;
-  return EXIT_SUCCESS;
 }

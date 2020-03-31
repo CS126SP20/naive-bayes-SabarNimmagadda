@@ -3,43 +3,50 @@
 #include <bayes/model.h>
 #include <nlohmann/json.hpp>
 #include <fstream>
+#include <utility>
 #include <bayes/image.h>
 using std::ifstream;
 namespace bayes {
 
-    bool Model::GetLabelsFromFile(string filepath) {
+    void Model::GetLabelsFromFile(string filepath) {
             if (filepath.empty()) {
-                return false;
+                return;
             }
             std::ifstream read_file(filepath);
             if(!read_file) {
                 cout << "Invalid file";
-                return false;
+                return;
             }
             int num_class;
             while (read_file >> num_class) {
                 training_labels.push_back(num_class);
             }
-            return true;
     }
 
-    bool Model::GetImagesFromFile(string filepath) {
+    void Model::GetImagesFromFile(string filepath) {
         if (filepath.empty()) {
-            return false;
+            return;
         }
         std::ifstream read_file(filepath);
         if(!read_file) {
             cout << "Invalid file";
-            return false;
+            return;
         }
         while (!read_file.eof()) {
             Image image;
             string line;
+            //This is the overloaded operator that generates the grid.
             read_file >> image;
             training_image_objects.push_back(image);
         }
-        return true;
     }
+
+    void Model::initialize(string label_file, string image_file, double smoothing) {
+        smoothing_factor = smoothing;
+        GetImagesFromFile(std::move(image_file));
+        GetLabelsFromFile(std::move(label_file));
+    }
+
     int Model::MostCommonShadeInFeature(int row, int col, Image image) {
         int whiteCount = 0;
         int shadedCount = 1;
@@ -95,15 +102,13 @@ namespace bayes {
         return probabilities_of_class_in_labels;
     }
 
-    void Model::setFeatureProbabilityArray(Image image) {
+    void Model::setFeatureProbabilityArray() {
         for (int i = 0; i < kImageSize; i++) {
             for (int j = 0; j < kImageSize; j++) {
                 for (int k = 0; k < kNumClasses; k++) {
-                    int l = 0;
-                    if (image.image_grid[i][j] == 1) {
-                       l = 1;
+                    for (int l = 0; l < kNumShades; l++) {
+                        probs_[i][j][k][l] = ComputeProbOfFeature(i, j ,k ,l);
                     }
-                    probs_[i][j][k][l] = ComputeProbOfFeature(i, j ,k ,l);
                 }
             }
         }
