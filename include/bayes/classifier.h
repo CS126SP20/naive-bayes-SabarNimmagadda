@@ -2,6 +2,8 @@
 
 #ifndef BAYES_CLASSIFIER_H_
 #define BAYES_CLASSIFIER_H_
+#include <bayes/model.h>
+#include <cmath>
 
 
 namespace bayes {

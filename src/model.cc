@@ -86,11 +86,24 @@ namespace bayes {
         return (double) count_of_nums_of_class / training_labels.size();
     }
 
-    void setFeatureProbabilityArray() {
+    std::vector<double> Model::CreateProbabilityOfClassInLabelsVector() {
+        vector<double> probabilities_of_class_in_labels;
+        for (int i = 0; i < kNumClasses; i++) {
+            double probability_of_class = ComputeProbabilityOfClassInLabels(i);
+            probabilities_of_class_in_labels.push_back(probability_of_class);
+        }
+        return probabilities_of_class_in_labels;
+    }
+
+    void Model::setFeatureProbabilityArray(Image image) {
         for (int i = 0; i < kImageSize; i++) {
             for (int j = 0; j < kImageSize; j++) {
                 for (int k = 0; k < kNumClasses; k++) {
-                    for (int l = 0; l < kNumShades; )
+                    int l = 0;
+                    if (image.image_grid[i][j] == 1) {
+                       l = 1;
+                    }
+                    probs_[i][j][k][l] = ComputeProbOfFeature(i, j ,k ,l);
                 }
             }
         }

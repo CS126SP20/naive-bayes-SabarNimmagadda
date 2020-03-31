@@ -63,6 +63,9 @@ public:
 
     double ComputeProbabilityOfClassInLabels(int numberclass);
 
+    void setFeatureProbabilityArray(Image image);
+
+    std::vector<double> CreateProbabilityOfClassInLabelsVector();
 
 
 
