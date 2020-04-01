@@ -8,30 +8,33 @@ using std::ifstream;
 namespace bayes {
 
     //This generates the label vector.
-    void Model::GetLabelsFromFile(const string& filepath) {
+    //Made as a boolean for testing.
+    bool Model::GetLabelsFromFile(const string& filepath) {
         if (filepath.empty()) {
-            return;
+            return false;
         }
         std::ifstream read_file(filepath);
         if(!read_file) {
             cout << "Invalid file";
-            return;
+            return false;
         }
         int num_class;
         while (read_file >> num_class) {
             labels.push_back(num_class);
         }
+        return true;
     }
 
     //This creates the vector of images.
-    void Model::GetImagesFromFile(const string& filepath) {
+    //Made as a boolean for testing.
+    bool Model::GetImagesFromFile(const string& filepath) {
         if (filepath.empty()) {
-            return;
+            return false;
         }
         std::ifstream read_file(filepath);
         if(!read_file) {
             cout << "Invalid file";
-            return;
+            return false;
         }
         string line;
         while (std::getline(read_file,line)){
@@ -40,6 +43,7 @@ namespace bayes {
             read_file >> image;
             image_objects.push_back(image);
         }
+        return true;
     }
 
     //This initializes the smoothing factor, and creates the vectors for labels and images.

@@ -71,10 +71,6 @@ namespace bayes {
          * @return the accuracy percentage of the classifier.
          */
         double getAccuracyPercentage(Model mod, const string& image_file, const string& label_file, double smoothing);
-
-
-
-
     };
 
 }  // namespace bayes

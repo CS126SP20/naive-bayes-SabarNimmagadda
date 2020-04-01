@@ -50,14 +50,16 @@ public:
     /**
      * This is used to fill in the labels vector from a file.
      * @param filepath the file containing the labels.
+     * @return the boolean checking whether the filepath is valid.
      */
-    void GetLabelsFromFile(const string& filepath);
+    bool GetLabelsFromFile(const string& filepath);
 
     /**
      * This is used to fill in the image object vector from a file.
      * @param filepath the file containing the images to be classified.
+     * @return the boolean checking whether the filepath is valid.
      */
-    void GetImagesFromFile(const string& filepath);
+    bool GetImagesFromFile(const string& filepath);
 
     /**
      * This computes the probability of whether
