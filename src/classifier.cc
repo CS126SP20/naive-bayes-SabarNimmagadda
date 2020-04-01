@@ -127,9 +127,5 @@ namespace bayes {
         }
         return (double) count_of_accurate_evals/model.image_objects.size() * 100;
     }
-
-
-
-
 }  // namespace bayes
 

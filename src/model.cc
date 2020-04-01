@@ -3,7 +3,7 @@
 #include <bayes/model.h>
 #include <fstream>
 #include <bayes/image.h>
-
+#include<iostream>
 using std::ifstream;
 namespace bayes {
 
@@ -132,9 +132,6 @@ namespace bayes {
         setFeatureProbabilityArray();
         setPriorProbabilitiesVector();
     }
-
-
-
 
 }  // namespace bayes
 
