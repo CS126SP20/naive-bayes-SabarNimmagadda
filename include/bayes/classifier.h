@@ -4,31 +4,29 @@
 #define BAYES_CLASSIFIER_H_
 #include <bayes/model.h>
 #include <cmath>
+#include <nlohmann/json.hpp>
+#include <fstream>
 
 
 namespace bayes {
     class Classifier {
     public:
-        vector<double> probabilities_of_class_in_labels;
-
         vector<double>posterior_probabilities;
 
         Model model;
 
-
-        void SaveModelDataToFiles();
-
-        void InitializeProbabilityOfClassInLabelsVector();
+        void SaveModelDataToFiles(string priors_file, string matrix_file, Model model);
 
         double GetProbabilityFromMatrix(int row, int col, int num_class, int shade);
-
-        double GetPosteriorProbabilityFromVector(Model model);
 
         int ReturnClassWithMaxPostProbability();
 
         int GetClassOfImage(Image image);
 
-        double getAccuracyPercentage(Model mod, string image_file, string label_file, double smoothing);
+        double getAccuracyPercentage(Model mod, const string& image_file, const string& label_file, double smoothing);
+
+
+
     };
 
 }  // namespace bayes

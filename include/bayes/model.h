@@ -54,19 +54,21 @@ class Model {
 
 
 public:
-    std::vector<Image> training_image_objects;
+    std::vector<Image> image_objects;
 
     double smoothing_factor;
 
-    std::vector<int> training_labels;
+    std::vector<int> labels;
+
+    std::vector<double> probabilities_of_priors;
 
     double probs_[kImageSize][kImageSize][kNumClasses][kNumShades];
 
-    void initialize(string label_file, string image_file, double smoothing);
+    void initialize(const string& label_file, const string& image_file, double smoothing);
 
-    void GetLabelsFromFile(string filepath);
+    void GetLabelsFromFile(const string& filepath);
 
-    void GetImagesFromFile(string filepath);
+    void GetImagesFromFile(const string& filepath);
 
     double ComputeProbOfFeature(int row, int col, int num_class, int color);
 
@@ -76,7 +78,9 @@ public:
 
     void setFeatureProbabilityArray();
 
-    std::vector<double> CreateProbabilityOfClassInLabelsVector();
+    void setProbabilityOfPriorsVector();
+
+    void train(const string& image_file, const string& label_file, double smoothing);
 
 
 };
