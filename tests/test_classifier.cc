@@ -15,7 +15,7 @@ TEST_CASE("Accuracy percentage test") {
     model.train("/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/digitdata/trainingimages",
             "/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/digitdata/traininglabels", 0.1);
     REQUIRE(classifier.getAccuracyPercentage(model,"/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/digitdata/testimages",
-            "/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/digitdata/testlabels", 0.1) == 0.7);
+            "/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/digitdata/testlabels", 0.1) >= 0.7);
 }
 
 TEST_CASE("Invalid Image File") {
@@ -34,3 +34,9 @@ TEST_CASE("Empty file for label file") {
     REQUIRE(!model.GetLabelsFromFile("/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/priorvector"));
 }
 
+TEST_CASE("Test for probility matrix") {
+    model.train("/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/digitdata/trainingimages",
+                "/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/digitdata/traininglabels", 1);
+    image = model.image_objects.at(0);
+    REQUIRE(model.probs_[0][0][0][0] == 1);
+}

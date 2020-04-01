@@ -13,7 +13,7 @@ namespace bayes {
     //This function saves all of the training data in 2 separate files.
     void Classifier::SaveModelDataToFiles(const string& priors_file, const string& matrix_file) {
         std::ofstream of;
-        of.open(priors_file, std::ios::out | std::ios::trunc);
+        of.open(priors_file, std::ios::out);
         if (!of) {
             //prints out an error message.
             cout << "Something went wrong";
@@ -22,7 +22,7 @@ namespace bayes {
             of << probs << std::endl;
         }
         of.close();
-        of.open(matrix_file, std::ios::out | std::ios::trunc);
+        of.open(matrix_file, std::ios::out);
         if (!of) {
             //prints out an error message.
             cout << "Something went wrong";
@@ -42,7 +42,7 @@ namespace bayes {
     //This function loads the training data from 2 separate files.
     void Classifier::LoadModelDataFromFiles(const string& priors_file, const string& matrix_file) {
         std::ifstream ifs;
-        ifs.open(priors_file, std::ios::out | std::ios::trunc);
+        ifs.open(priors_file, std::ios::out);
         if (!ifs) {
             //prints out an error message.
             cout << "Something went wrong";
@@ -54,7 +54,7 @@ namespace bayes {
             model.prior_probabilities.push_back(probs);
         }
         ifs.close();
-        ifs.open(matrix_file, std::ios::out | std::ios::trunc);
+        ifs.open(matrix_file, std::ios::out);
         if (!ifs) {
             cout << "Something went wrong";
         }
