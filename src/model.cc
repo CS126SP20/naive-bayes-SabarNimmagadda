@@ -1,4 +1,4 @@
-// Copyright 2020 [Your Name]. All rights reserved.
+// Copyright 2020 Sabar Nimmagadda. All rights reserved.
 
 #include <bayes/model.h>
 #include <fstream>

@@ -1,4 +1,4 @@
-// Copyright (c) 2020 [Your Name]. All rights reserved.
+// Copyright (c) 2020 [Sabar Nimmagadda]. All rights reserved.
 
 #include <bayes/classifier.h>
 #include "bayes/image.h"
@@ -8,8 +8,7 @@
 #include <cstdlib>
 #include <iostream>
 
-
-// TODO(you): Change the code below for your project use case.
+.
 
 
 using std::cin;
