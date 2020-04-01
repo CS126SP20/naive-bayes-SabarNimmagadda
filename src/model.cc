@@ -38,11 +38,12 @@ namespace bayes {
             return false;
         }
         while (!read_file.eof()){
-            Image image;
+            Image image{};
             //This is the overloaded operator that generates the grid.
             read_file >> image;
             image_objects.push_back(image);
         }
+        image_objects.pop_back();
         return true;
     }
 

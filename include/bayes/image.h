@@ -41,14 +41,6 @@ namespace bayes {
         friend istream &operator>>(istream &input, Image image);
 
         /**
-         * This function prints out a grid from the read image.
-         * @param output the output stream where the image is printed.
-         * @param image the Image object that is read.
-         * @return output the output stream where the image is printed.
-         */
-        friend ostream &operator<<(ostream output, Image image);
-
-        /**
          * setter for image_grid;
          * @param grid the grid the 2-D array must be set to.
          */
