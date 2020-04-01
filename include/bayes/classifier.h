@@ -17,6 +17,8 @@ namespace bayes {
 
         void SaveModelDataToFiles(string priors_file, string matrix_file, Model model);
 
+        void LoadModelDataFromFiles(string priors_file, string matrix_file, Model model);
+
         double GetProbabilityFromMatrix(int row, int col, int num_class, int shade);
 
         int ReturnClassWithMaxPostProbability();

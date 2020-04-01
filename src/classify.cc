@@ -30,14 +30,18 @@ int main(int argc, char** argv) {
     cin >> training_label_file;
     cout << "\n Enter smoothing factor: ";
     cin >> smoothing_factor;
-    cout << "Saving model as file ";
+    cout << "Saving model as files";
+    classifier.SaveModelDataToFiles("/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/priorvector",
+            "/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/probmatrix", model);
     model.train(training_image_file, training_label_file, smoothing_factor);
-    cout <<" Would you like to load the trained model?";
+    cout <<"\n  Would you like to load the trained model?";
     cin >> input;
     if (input != "yes") {
         cout << "File not loaded, ending program";
         EXIT_FAILURE;
     }
+    classifier.LoadModelDataFromFiles("/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/priorvector",
+                                    "/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/probmatrix", model);
     cout << "\n Loaded trained model";
     cout << "\n Enter file for images:  ";
     cin >> image_file;

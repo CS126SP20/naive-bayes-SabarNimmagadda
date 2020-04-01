@@ -12,14 +12,60 @@ namespace bayes {
 
     void saveModelDataToFiles(string priors_file, string matrix_file, Model model) {
         std::ofstream of;
-        of.open(priors_file, std::ios::out);
+        of.open(priors_file, std::ios::out | std::ios::trunc);
         if (!of) {
             cout << "Something went wrong";
         }
-        for (auto prior : model.probabilities_of_priors) {
-
+        for (auto probs : model.probabilities_of_priors) {
+            of << probs << std::endl;
         }
+        of.close();
+        of.open(matrix_file, std::ios::out | std::ios::trunc);
+        if (!of) {
+            cout << "Something went wrong";
+        }
+        for (int i = 0; i < kImageSize; i++) {
+            for (int j = 0; j < kImageSize; j++) {
+                for (int k = 0; k < kNumClasses; k++) {
+                    for (int l = 0; l < kNumShades; l++) {
+                        of << model.probs_[i][j][k][l];
+                    }
+                }
+            }
+        }
+        of.close();
     }
+
+    void loadModelDataFromFiles(string priors_file, string matrix_file, Model model) {
+        std::ifstream ifs;
+        ifs.open(priors_file, std::ios::out | std::ios::trunc);
+        if (!ifs) {
+            cout << "Something went wrong";
+        }
+        double probs;
+        while (ifs >> probs) {
+            model.probabilities_of_priors.push_back(probs);
+        }
+        ifs.close();
+        ifs.open(matrix_file, std::ios::out | std::ios::trunc);
+        if (!ifs) {
+            cout << "Something went wrong";
+        }
+        for (int i = 0; i < kImageSize; i++) {
+            for (int j = 0; j < kImageSize; j++) {
+                for (int k = 0; k < kNumClasses; k++) {
+                    for (int l = 0; l < kNumShades; l++) {
+                        double prob;
+                        ifs >> prob;
+                        model.probs_[i][j][k][l] = prob;
+                    }
+                }
+            }
+        }
+        ifs.close();
+    }
+
+
 
 
     double Classifier::GetProbabilityFromMatrix(int row, int col, int num_class, int shade) {
