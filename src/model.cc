@@ -13,14 +13,15 @@ namespace bayes {
         if (filepath.empty()) {
             return false;
         }
+
         std::ifstream read_file(filepath);
         if(!read_file) {
-            cout << "Invalid file";
+            cout << "Invalid File";
             return false;
         }
-        int num_class;
-        while (read_file >> num_class) {
-            labels.push_back(num_class);
+        string line;
+        while (std::getline(read_file, line)) {
+            labels.push_back(stoi(line));
         }
         return true;
     }
@@ -33,11 +34,10 @@ namespace bayes {
         }
         std::ifstream read_file(filepath);
         if(!read_file) {
-            cout << "Invalid file";
+            cout << "Invalid File";
             return false;
         }
-        string line;
-        while (std::getline(read_file,line)){
+        while (!read_file.eof()){
             Image image;
             //This is the overloaded operator that generates the grid.
             read_file >> image;

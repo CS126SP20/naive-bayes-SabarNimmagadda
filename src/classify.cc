@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
     cin >> input;
     if (input != "yes") {
         cout << "File not loaded, ending program";
-        EXIT_FAILURE;
+        EXIT_SUCCESS;
     }
     classifier.LoadModelDataFromFiles("/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/priorvector",
                                     "/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/probmatrix");

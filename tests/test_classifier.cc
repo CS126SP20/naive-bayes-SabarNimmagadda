@@ -40,3 +40,9 @@ TEST_CASE("Test for probility matrix") {
     image = model.image_objects.at(0);
     REQUIRE(model.probs_[0][0][0][0] == 1);
 }
+
+TEST_CASE("Probability for Class in Labels test") {
+    model.train("/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/data/digitdata/trainingimages",
+                "/Users/sabarnimmagadda/CLionProjects/naive-bayes-SabarNimmagadda/tests/data/samplelabels", 1);
+    REQUIRE(model.ComputeProbabilityOfClassInLabels(0) == 0.33);
+}
