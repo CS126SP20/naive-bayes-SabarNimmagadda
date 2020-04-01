@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <iostream>
 
-.
+
 
 
 using std::cin;
