@@ -1,13 +1,13 @@
 // Copyright 2020 [Your Name]. All rights reserved.
 
 #include <bayes/model.h>
-#include <nlohmann/json.hpp>
 #include <fstream>
-#include <utility>
 #include <bayes/image.h>
+
 using std::ifstream;
 namespace bayes {
 
+    //This generates the label vector.
     void Model::GetLabelsFromFile(const string& filepath) {
         if (filepath.empty()) {
             return;
@@ -23,6 +23,7 @@ namespace bayes {
         }
     }
 
+    //This creates the vector of images.
     void Model::GetImagesFromFile(const string& filepath) {
         if (filepath.empty()) {
             return;
@@ -41,12 +42,14 @@ namespace bayes {
         }
     }
 
+    //This initializes the smoothing factor, and creates the vectors for labels and images.
     void Model::initialize(const string& label_file, const string& image_file, double smoothing) {
         smoothing_factor = smoothing;
         GetImagesFromFile(image_file);
         GetLabelsFromFile(label_file);
     }
 
+    //This returns the most common shade in a certain feature.
     int Model::MostCommonShadeInFeature(int row, int col, Image image) {
         int whiteCount = 0;
         int shadedCount = 1;
@@ -65,6 +68,7 @@ namespace bayes {
         return 1;
     }
 
+    //Computes the likelihood of a feature being shaded or not.
     double Model::ComputeProbOfFeature(int row, int col, int num_class, int shade) {
         int count_of_nums_of_class = 0;
         int count_of_shade_at_position = 0;
@@ -82,7 +86,7 @@ namespace bayes {
                / (2*smoothing_factor + count_of_nums_of_class);
     }
 
-
+    //This returns the probability of a number to be a label.
     double Model::ComputeProbabilityOfClassInLabels(int num_class) {
         int count_of_nums_of_class = 0;
         for (long i = 0; i < labels.size(); i++) {
@@ -93,15 +97,17 @@ namespace bayes {
         return (double) count_of_nums_of_class / labels.size();
     }
 
-    void Model::setProbabilityOfPriorsVector() {
+    //This sets the prior_probabilities vector
+    void Model::setPriorProbabilitiesVector() {
 
         for (int i = 0; i < kNumClasses; i++) {
             double probability_of_class = ComputeProbabilityOfClassInLabels(i);
-            probabilities_of_priors.push_back(probability_of_class);
+            prior_probabilities.push_back(probability_of_class);
         }
 
     }
 
+    //This sets the probs_ array.
     void Model::setFeatureProbabilityArray() {
         for (int i = 0; i < kImageSize; i++) {
             for (int j = 0; j < kImageSize; j++) {
@@ -114,12 +120,13 @@ namespace bayes {
         }
     }
 
+    //This is used to training by accessing the training files.
     void Model::train(const string& image_file, const string& label_file, double smoothing) {
         smoothing_factor = smoothing;
         GetImagesFromFile(image_file);
         GetLabelsFromFile(label_file);
         setFeatureProbabilityArray();
-        setProbabilityOfPriorsVector();
+        setPriorProbabilitiesVector();
     }
 
 

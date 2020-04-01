@@ -12,7 +12,7 @@ namespace bayes {
             }
         }
     }
-
+    //This overloads the output stream to read the grid of object of a certain object and output it.
     ostream &operator<<(ostream output, Image image) {
         //Prints 2-D array grid into the output stream.
         for (int row_index = 0; row_index < kImageSize; row_index++) {
@@ -24,6 +24,8 @@ namespace bayes {
         return output;
     }
 
+    //This overloads the input operator to generate a 2-D grid of
+    //1's and 0's depending on the shade of the specific image at that specific pixel.
     istream &operator>>(istream &input, Image image) {
         string line;
         int grid[kImageSize][kImageSize];

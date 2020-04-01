@@ -10,24 +10,6 @@
 
 namespace bayes {
 
-/*
- * We've given you a starter struct to represent the model.
- * You are totally allowed to delete, change, move, rename, etc. this struct
- * however you like! In fact, we encourage it! It only exists as a starting
- * point of reference.
- *
- * In our probabilities array we have a final dimension [2], which represents
- * the individual probabilities that a pixel for a class is either shaded or
- * not shaded. Since the probability that a pixel is shaded is just
- * (1 - probability not shaded), we COULD have deleted that final dimension
- * (and you can do so if you want to), but we left it in so that you could
- * see how the model would need to change if we were to keep track of the
- * probability that a pixel is white vs. gray vs. dark gray vs. black.
- *
- * You can delete this comment once you're done with it.
- */
-
-// 0-9 inclusive.
 constexpr size_t kNumClasses = 10;
 // Shaded or not shaded.
 constexpr size_t kNumShades = 2;
@@ -38,48 +20,90 @@ constexpr size_t kNumShades = 2;
  * white or black.
  */
 class Model {
-  // The individual probabilities for each pixel for each class for
-  // whether it's shaded or not.
-  //
-  // Examples:
-  // probs[2][10][7][0] is the computed probability that a pixel at
-  // [2][10] for class 7 is not shaded.
-  //
-  // probs[0][0][0][1] is the computed probability that a pixel at
-  // [0][0] for class 0 is shaded.
-  private:
-
-
-
-
 
 public:
+    //This is a vector of image objects.
     std::vector<Image> image_objects;
 
+    //This is the laplace smoothing factor, which is used in some computations.
     double smoothing_factor;
 
+    //This is the vector of labels corresponding to the images.
     std::vector<int> labels;
 
-    std::vector<double> probabilities_of_priors;
+    //This is the vector corresponding to the prior probabilities.
+    std::vector<double> prior_probabilities;
 
+    //This is the matrix that contains the probability of whether a specific pixel for a specific class is shaded or not.
     double probs_[kImageSize][kImageSize][kNumClasses][kNumShades];
 
+    /**
+     * This function is used to get data from the label and image files
+     * and fill in the respective vectors.
+     * It is called in the getAccuracyPercentage function of the Classifier.
+     * @param label_file the file which has all the labels.
+     * @param image_file the file which has all the images to be classified.
+     * @param smoothing the laplace smoothing variable used in computation.
+     */
     void initialize(const string& label_file, const string& image_file, double smoothing);
 
+    /**
+     * This is used to fill in the labels vector from a file.
+     * @param filepath the file containing the labels.
+     */
     void GetLabelsFromFile(const string& filepath);
 
+    /**
+     * This is used to fill in the image object vector from a file.
+     * @param filepath the file containing the images to be classified.
+     */
     void GetImagesFromFile(const string& filepath);
 
+    /**
+     * This computes the probability of whether
+     * a specific pixel for a specific class is shaded or not.
+     * @param row the row of the pixel.
+     * @param col the column of the pixel.
+     * @param num_class the label for which the probability is being computed.
+     * @param color the shade for which the probability is being computed.
+     * @return the probability for a specific class is shaded or not.
+     */
     double ComputeProbOfFeature(int row, int col, int num_class, int color);
 
+    /**
+     * The most common shade in a feature, which is used in the ComputeProbOfFeature() function.
+     * A feature is a part of the grid of row*col dimensions for a given image object.
+     * @param rows one dimension of the feature.
+     * @param col the second dimension of the feature.
+     * @param image the image for which the most common shade is being determined.
+     * @return the most common shade (0, or 1).
+     */
     int MostCommonShadeInFeature(int rows, int col, Image image);
 
+    /**
+     * Finds the probability of a certain class to be in the training labels.
+     * @param numberclass the class whose probability is being calculated.
+     * @return the probability of a certain class to be in the training labels.
+     */
     double ComputeProbabilityOfClassInLabels(int numberclass);
 
+    /**
+     * This fills in the probs_ matrix.
+     */
     void setFeatureProbabilityArray();
 
-    void setProbabilityOfPriorsVector();
+    /**
+     * This function sets the prior_probabilities vector.
+     */
+    void setPriorProbabilitiesVector();
 
+    /**
+     * This is called to train the program for classification.
+     * It is called in the beginning of the execution of this program.
+     * @param image_file the file of training images.
+     * @param label_file the file of training labels.
+     * @param smoothing the smoothing constant.
+     */
     void train(const string& image_file, const string& label_file, double smoothing);
 
 

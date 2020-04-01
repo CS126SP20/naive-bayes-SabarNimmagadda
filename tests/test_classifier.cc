@@ -6,7 +6,7 @@
 #include <bayes/classifier.h>
 
 
-// TODO(you): Remove this unnecessary test case.
+
 TEST_CASE("Sanity Check", "[addition]") {
   REQUIRE(1 + 1 == 2);
 }
